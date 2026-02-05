@@ -1,0 +1,261 @@
+/* =========================================
+   ADMIN PANEL STYLING
+   ========================================= */
+
+/* 1. VARIABLES - Matched to Homepage.css */
+:root {
+    --np-bg-page: #F8FAFC;       /* Light Slate */
+    --np-bg-card: #FFFFFF;       /* White */
+    --np-text-main: #0F172A;     /* Dark Navy */
+    --np-text-muted: #64748B;    /* Slate Grey */
+    --np-border: #E2E8F0;        /* Light Border */
+    --np-primary: #2563EB;       /* Royal Blue */
+    --np-primary-hover: #1d4ed8; 
+    --np-danger: #EF4444;        /* Red */
+    --np-danger-bg: #FEF2F2;
+    --np-success: #10B981;
+    
+    --np-radius: 16px;
+    --np-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --np-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* DARK MODE OVERRIDES */
+body.dark-theme .np-wrapper {
+    --np-bg-page: #0F172A;
+    --np-bg-card: #1E293B;
+    --np-text-main: #FFFFFF;     /* Force White Text */
+    --np-text-muted: #94A3B8;
+    --np-border: #334155;
+    --np-primary: #60A5FA;
+    --np-primary-hover: #3B82F6;
+    --np-danger-bg: rgba(239, 68, 68, 0.2);
+}
+
+/* =========================================
+   2. LAYOUT & WRAPPERS
+   ========================================= */
+.np-wrapper {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 2rem 1rem;
+    width: 100%;
+}
+
+.np-card {
+    background-color: var(--np-bg-card);
+    width: 100%;
+    max-width: 1000px; 
+    border-radius: var(--np-radius);
+    box-shadow: var(--np-shadow-hover);
+    padding: 3rem;
+    border: 1px solid var(--np-border);
+    transition: transform 0.2s ease;
+}
+
+/* =========================================
+   3. HEADERS
+   ========================================= */
+.np-header { text-align: center; margin-bottom: 2.5rem; }
+
+.np-title {
+    font-size: 1.75rem; /* Reduced from 2rem */
+    font-weight: 800;
+    color: var(--np-text-main);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.np-subtitle { font-size: 1rem; color: var(--np-text-muted); }
+
+/* Dashboard Header */
+.np-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--np-border);
+}
+
+/* =========================================
+   4. FORMS & FIXED INPUT STYLING
+   ========================================= */
+.np-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.np-field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.np-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--np-text-muted);
+}
+
+/* --- THE INPUT FIX --- */
+.np-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border: 1px solid var(--np-border);
+    border-radius: 12px;
+    
+    /* BACKGROUND & TEXT COLOR */
+    background-color: var(--np-bg-page); 
+    color: var(--np-text-main); 
+    
+    opacity: 1; /* Ensure text is bright */
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+/* Forced White Text in Dark Mode */
+body.dark-theme .np-input {
+    color: #FFFFFF !important;
+    background-color: #0F172A; 
+}
+
+.np-input:focus {
+    outline: none;
+    border-color: var(--np-primary);
+    background-color: var(--np-bg-card);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    color: var(--np-text-main); 
+}
+
+.np-input::placeholder {
+    color: var(--np-text-muted);
+    opacity: 0.6; 
+}
+
+/* AUTOFILL FIXES */
+.np-input:-webkit-autofill,
+.np-input:-webkit-autofill:hover, 
+.np-input:-webkit-autofill:focus, 
+.np-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--np-bg-page) inset !important;
+    -webkit-text-fill-color: var(--np-text-main) !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--np-text-main);
+}
+
+/* Dark Mode Specific Autofill */
+body.dark-theme .np-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #0F172A inset !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    caret-color: #FFFFFF;
+}
+
+.np-editor {
+    min-height: 300px;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================
+   5. BUTTONS
+   ========================================= */
+.np-btn-submit, .np-btn-create {
+    background-color: var(--np-primary);
+    color: #ffffff;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.np-btn-submit:hover, .np-btn-create:hover {
+    background-color: var(--np-primary-hover);
+    transform: translateY(-2px);
+}
+
+.np-btn-submit:disabled {
+    background-color: var(--np-text-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.np-toggle-link {
+    color: var(--np-primary);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+.np-toggle-link:hover { text-decoration: underline; }
+
+/* =========================================
+   6. DASHBOARD GRID & TABLES
+   ========================================= */
+.np-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.np-dashboard-card {
+    background: var(--np-bg-card);
+    border: 1px solid var(--np-border);
+    border-radius: var(--np-radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.np-dashboard-card:hover {
+    border-color: var(--np-primary);
+    transform: translateY(-5px);
+    box-shadow: var(--np-shadow-hover);
+}
+
+.np-icon-large { font-size: 2.5rem; color: var(--np-primary); }
+.np-card-title { font-size: 1.2rem; font-weight: 700; color: var(--np-text-main); }
+.np-card-desc { font-size: 0.95rem; color: var(--np-text-muted); }
+
+/* TABLES */
+.np-table-container { overflow-x: auto; margin-top: 1rem; }
+.np-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left; }
+
+.np-table th {
+    padding: 1rem 1.5rem;
+    color: var(--np-text-muted);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--np-border);
+}
+
+.np-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--np-border);
+    color: var(--np-text-main);
+}
+
+.np-btn-icon {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.np-btn-edit { background: rgba(37, 99, 235, 0.1); color: var(--np-primary); }
+.np-btn-edit:hover { background: rgba(37, 99, 235, 0.2); }
+.np-btn-delete { background: var(--np-danger-bg); color: var(--np-danger); }
+.np-btn-delete:hover { background: rgba(239, 68, 68, 0.2); }

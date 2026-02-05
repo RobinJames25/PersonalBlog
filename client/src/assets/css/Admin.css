@@ -1,0 +1,236 @@
+/* src/assets/css/ManagePosts.css */
+
+/* --- LOCAL VARIABLES (Matches Create Post) --- */
+.np-wrapper {
+    --np-bg-page: #f8f9fa;
+    --np-bg-card: #ffffff;
+    --np-text-main: #212529;
+    --np-text-muted: #6c757d;
+    --np-border: #dee2e6;
+    --np-primary: #3b82f6; 
+    --np-primary-hover: #2563eb;
+    --np-danger: #ef4444;       /* Added for Delete button */
+    --np-danger-bg: #fee2e2;    /* Light red background */
+    --np-radius: 12px;
+    --np-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--np-bg-page);
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* --- CARD CONTAINER --- */
+.np-card {
+    background-color: var(--np-bg-card);
+    width: 100%;
+    /* Max width set to 1200px to accommodate table columns comfortably */
+    max-width: 1200px; 
+    border-radius: var(--np-radius);
+    box-shadow: var(--np-shadow);
+    padding: 3rem;
+    border: 1px solid var(--np-border);
+    height: fit-content;
+}
+
+/* --- HEADER (Flex for Title + Button) --- */
+.np-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--np-bg-page);
+    padding-bottom: 2rem;
+}
+
+.np-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--np-text-main);
+    letter-spacing: -0.05rem;
+    margin: 0;
+}
+
+/* --- CREATE BUTTON --- */
+.np-btn-create {
+    background-color: var(--np-primary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.np-btn-create:hover {
+    background-color: var(--np-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* --- TABLE STYLING --- */
+.np-table-container {
+    overflow-x: auto; /* Handles responsiveness on small screens */
+}
+
+.np-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+/* Table Head */
+.np-table thead th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    color: var(--np-text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+    background-color: var(--np-bg-page); /* Light gray header to match theme */
+    border-bottom: 2px solid var(--np-border);
+}
+
+.np-table thead th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.np-table thead th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Table Body */
+.np-table tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid var(--np-border);
+}
+
+.np-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.np-table tbody tr:hover {
+    background-color: #f8f9fa; /* Slight hover effect */
+}
+
+.np-table td {
+    padding: 1.2rem 1.5rem;
+    color: var(--np-text-main);
+    vertical-align: middle;
+}
+
+/* Content Typography inside Table */
+.np-post-title {
+    font-weight: 600;
+    color: var(--np-text-main);
+    font-size: 1.1rem;
+}
+
+.np-post-slug {
+    font-family: 'Fira Code', monospace;
+    color: var(--np-text-muted);
+    font-size: 0.9rem;
+    background: var(--np-bg-page);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+}
+
+.np-post-date {
+    color: var(--np-text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- ACTION BUTTONS (Edit/Delete) --- */
+.np-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.np-btn-icon {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.np-btn-edit {
+    background-color: #e0f2fe; /* Very light blue */
+    color: var(--np-primary);
+}
+
+.np-btn-edit:hover {
+    background-color: #bae6fd;
+}
+
+.np-btn-delete {
+    background-color: var(--np-danger-bg);
+    color: var(--np-danger);
+}
+
+.np-btn-delete:hover {
+    background-color: #fecaca;
+}
+
+/* --- EMPTY STATE --- */
+.np-empty {
+    text-align: center;
+    padding: 4rem;
+    color: var(--np-text-muted);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* --- DASHBOARD GRID (Add to bottom of css file) --- */
+.np-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.np-dashboard-card {
+    background: #f8f9fa;
+    border: 1px solid var(--np-border);
+    border-radius: var(--np-radius);
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.np-dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-color: var(--np-primary);
+}
+
+.np-icon-large {
+    font-size: 2.5rem;
+}
+
+.np-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--np-text-main);
+}
+
+.np-card-desc {
+    color: var(--np-text-muted);
+    font-size: 0.9rem;
+}

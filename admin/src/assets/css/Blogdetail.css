@@ -1,0 +1,168 @@
+/* =========================================
+   BLOG DETAIL PAGE STYLING
+   ========================================= */
+
+/* 1. Container - Optimal reading width */
+.blog-detail {
+    max-width: 72rem; /* Narrower than the main page for readability */
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* 2. Header Area */
+.blog-detail__header {
+    margin-bottom: 4rem;
+}
+
+.blog-detail__title {
+    color: var(--text-title);
+    font-family: var(--text-2-family);
+    font-size: 3.6rem; /* Larger Title */
+    font-weight: 800;
+    line-height: 1.2;
+    margin-top: 1.6rem;
+    margin-bottom: 1.2rem;
+}
+
+.blog-detail__date {
+    color: var(--text-body);
+    font-family: var(--text-8-family);
+    font-size: 1.6rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* 3. The Navigation Links ("Back to blog") */
+.back-link {
+    display: inline-block;
+    color: var(--blue-500);
+    font-family: var(--text-6-family);
+    font-size: 1.6rem;
+    font-weight: 600;
+    transition: color 0.2s, transform 0.2s;
+    margin-bottom: 1rem;
+}
+
+.back-link:hover {
+    color: var(--blue-700);
+    transform: translateX(-0.5rem); /* Slight nudge animation */
+}
+
+/* 4. Article Content Typography */
+.article-content {
+    color: var(--text-body);
+    font-family: var(--text-7-family); /* Easy reading font */
+    font-size: 1.8rem; /* 18px base size for reading */
+    line-height: 1.7; /* Generous line height */
+    min-height: 30rem;
+}
+
+/* Spacing between paragraphs */
+.article-content p {
+    margin-bottom: 2.4rem;
+}
+
+/* Headings inside the article */
+.article-content h3 {
+    color: var(--text-title);
+    font-family: var(--text-3-family);
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-top: 4.8rem; /* More space above headings */
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color); /* Subtle divider */
+}
+
+/* Author/Meta text under headings */
+.article-meta {
+    font-size: 1.6rem;
+    color: var(--text-placeholder);
+    margin-top: -0.8rem;
+    margin-bottom: 2.4rem !important;
+    font-style: italic;
+}
+
+/* 5. Feature Components (Callouts, Quotes, Lists) */
+
+/* The Blue "Why I Love It" Box */
+.article-callout {
+    background-color: var(--background-btn-color);
+    border-left: 0.4rem solid var(--blue-500);
+    padding: 2rem 2.4rem;
+    border-radius: 0.8rem;
+    margin: 3.2rem 0;
+    font-style: italic;
+}
+
+/* The Gray "Did You Know" Info Box */
+.article-info {
+    background-color: var(--background-input-color);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 1.2rem;
+    margin: 3.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Blockquotes */
+.article-content blockquote {
+    font-size: 2rem;
+    color: var(--text-title);
+    font-weight: 600;
+    text-align: center;
+    margin: 4rem 2rem;
+    line-height: 1.4;
+    position: relative;
+}
+
+/* Bullet Lists */
+.article-list {
+    margin-bottom: 2.4rem;
+    padding-left: 2rem;
+}
+
+.article-list li {
+    list-style: disc;
+    margin-bottom: 0.8rem;
+    padding-left: 0.8rem;
+}
+
+.article-list li::marker {
+    color: var(--blue-500); /* Blue bullet points */
+}
+
+/* Divider Line */
+.article-divider {
+    border: none;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 4rem 0;
+}
+
+/* 6. Footer Area */
+.blog-detail__footer {
+    margin-top: 6rem;
+    text-align: center;
+    color: var(--text-body);
+    font-size: 1.6rem;
+}
+
+/* 7. Responsive Adjustments */
+@media (max-width: 768px) {
+    .blog-detail__title {
+        font-size: 2.8rem;
+    }
+    .article-content {
+        font-size: 1.6rem;
+    }
+    .article-content h3 {
+        font-size: 2rem;
+    }
+    .article-callout, .article-info {
+        padding: 1.6rem;
+    }
+}

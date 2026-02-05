@@ -1,0 +1,89 @@
+Great choice. The manual method is completely free and gives you full control while you are just starting out.
+
+Here is your complete "Manual Newsletter" workflow.
+
+Phase 1: Perfecting the "Subject Line"
+For this to work, every email you receive must have the exact same subject line so we can filter them.
+
+Check your Code: Ensure your templateParams in Newsletter.jsx looks like this (hardcoding the name ensures consistency):
+
+JavaScript
+
+const templateParams = {
+  name: "New Subscriber", // This ensures the subject line is always the same
+  email: email,
+  message: "Please add this user to the newsletter list."
+};
+Check your EmailJS Template:
+
+Go to the EmailJS Dashboard.
+
+Open your Template.
+
+Set the Subject field to: New message from {{name}}
+
+Result: Every email will arrive with the subject: "New message from New Subscriber".
+
+Phase 2: The "Bucket" (Automated Filtering)
+We don't want these emails cluttering your main inbox. We want them to land in a specific folder.
+
+Open Gmail.
+
+In the search bar, click the Show search options icon (the sliders on the right).
+
+In the Subject field, paste: New message from New Subscriber
+
+Click Create filter.
+
+Check these boxes:
+
+Skip the Inbox (Archive it) (Optional, if you don't want a notification for every sign-up).
+
+Apply the label: Choose "New Label..." and name it 📥 Newsletter Signups.
+
+Click Create filter.
+
+Now, every time someone uses your form, their email will skip your inbox and sit waiting for you in the "Newsletter Signups" folder.
+
+Phase 3: The "Database" (Google Sheets)
+Once a month (or whenever you want to send a post), you need to move the emails from Gmail to a list.
+
+Create a new Google Sheet named "My Blog Subscribers".
+
+Create three columns: Date Added | Email Address | Status.
+
+The Routine:
+
+Go to your 📥 Newsletter Signups folder in Gmail.
+
+Open the emails.
+
+Copy the email address.
+
+Paste it into the Email Address column in your Sheet.
+
+Mark Status as "Active".
+
+Phase 4: Sending the Newsletter (The Critical Part)
+When you are ready to share your latest blog post, follow these strict rules to avoid leaking private data.
+
+Compose a new email.
+
+To: Put your own email address here. (e.g., me@myblog.com).
+
+BCC (Blind Carbon Copy): Click "BCC" and paste ALL the subscriber emails from your Google Sheet here.
+
+Why? If you put them in "To" or "CC", everyone will see everyone else's private email address. This is a major privacy breach. "BCC" hides the list.
+
+Subject: "My Latest Article: [Title]"
+
+Body: Write your update and include the link to your blog post.
+
+Summary Checklist
+[ ] Code: templateParams updated with name: "New Subscriber".
+
+[ ] EmailJS: Template Subject set to New message from {{name}}.
+
+[ ] Gmail: Filter created for that subject line -> Moves to Label.
+
+[ ] Sending: Always use BCC.

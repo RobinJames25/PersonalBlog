@@ -1,0 +1,108 @@
+.blog {
+    max-width: 60rem;
+}
+
+.blog__title {
+    color: var(--text-title);
+    font-family: var(--text-2-family);
+    font-size: var(--text-2-size);
+    font-weight: var(--text-2-weight);
+    line-height: var(--text-2-height);
+    letter-spacing: var(--text-2-spacing);
+    position: relative;
+    width: fit-content;
+    margin-bottom: 0.6rem;
+}
+
+.blog__title::before {
+    content: "";
+    position: absolute;
+    bottom: 0.8rem;
+    right: calc(-1rem + -4rem);
+    height: 0.3rem;
+    width: 4rem;
+    background-color: var(--underline-color);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+.blog__text {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: var(--text-7-size);
+    font-weight: var(--text-7-weight);
+    line-height: var(--text-7-height);
+    letter-spacing: var(--text-7-spacing);
+    margin-bottom: 2.4rem;
+}
+
+.blog__articles {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-top: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog__article-title {
+    color: var(--text-title);
+    font-family: var(--text-5-family);
+    font-size: var(--text-5-size);
+    font-weight: var(--text-5-weight);
+    line-height: var(--text-5-height);
+    letter-spacing: var(--text-5-spacing);
+    margin-bottom: 0.8rem;
+}
+
+.blog__article-date {
+    color: var(--text-body);
+    font-family: var(--text-8-family);
+    font-size: var(--text-8-size);
+    font-weight: var(--text-8-weight);
+    line-height: var(--text-8-height);
+    letter-spacing: var(--text-8-spacing);
+    font-style: var(--text-8-italic-style);
+    margin-bottom: 0.8rem;
+}
+
+.blog__article-description {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: var(--text-7-size);
+    font-weight: var(--text-7-weight);
+    line-height: var(--text-7-height);
+    letter-spacing: var(--text-7-spacing);
+}
+
+/* Add to src/assets/css/Blog.css */
+
+.blog__article-description {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+    margin-bottom: 3.2rem; /* More space between articles */
+    
+    /* Limit to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+    /* Add a subtle left border to make it look like an excerpt */
+    padding-left: 1.6rem;
+    border-left: 2px solid var(--border-color);
+}
+
+/* Specific fix for Dark Mode readability */
+body.dark-theme .blog__article-description {
+    opacity: 0.8;
+    border-left-color: var(--blue-500); /* Nice accent color in dark mode */
+}

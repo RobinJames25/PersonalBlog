@@ -1,0 +1,145 @@
+/* =========================================
+   NEWSLETTER PAGE STYLING
+   ========================================= */
+
+/* Center the content vertically and horizontally */
+.newsletter-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Takes up substantial screen space */
+    padding: 0 1.5rem;
+}
+
+/* 1. THE MAIN CARD */
+.newsletter-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px; /* Softer, larger radius */
+    padding: 3.5rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-hover); /* Floating effect */
+    transition: transform 0.3s ease;
+}
+
+.newsletter-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+/* 2. TYPOGRAPHY */
+.newsletter-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+}
+
+.newsletter-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* 3. FORM ELEMENTS */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: left; /* Aligns label and input to left */
+}
+
+.input-group {
+    position: relative;
+}
+
+.newsletter-input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.newsletter-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* 4. BUTTON STYLING */
+.newsletter-btn {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: var(--accent);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 100%;
+}
+
+.newsletter-btn:hover {
+    background-color: #1d4ed8; /* Slightly darker blue */
+    transform: translateY(-2px);
+}
+
+.newsletter-btn:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 5. FEEDBACK MESSAGES */
+.status-message {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.status-message.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10B981; /* Green */
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444; /* Red */
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.newsletter-note {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .newsletter-card {
+        padding: 2rem;
+    }
+    .newsletter-title {
+        font-size: 2rem;
+    }
+}

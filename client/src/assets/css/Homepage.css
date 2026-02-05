@@ -1,0 +1,436 @@
+/* =========================================
+   1. VARIABLES & SETUP
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    /* Modern Tech Palette (Slate/Blue) */
+    --bg-body: #F8FAFC;       /* Lightest Grey */
+    --bg-card: #FFFFFF;       /* White */
+    --bg-header: rgba(255, 255, 255, 0.85); /* Glass effect */
+    
+    --text-main: #0F172A;     /* Dark Navy */
+    --text-muted: #64748B;    /* Slate Grey */
+    --accent: #2563EB;        /* Royal Blue */
+    
+    --border: #E2E8F0;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    --max-width: 1100px;
+}
+
+/* Dark Mode Overrides */
+body.dark-theme {
+    --bg-body: #0F172A;
+    --bg-card: #1E293B;
+    --bg-header: rgba(15, 23, 42, 0.85);
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent: #60A5FA;
+    --border: #334155;
+}
+
+/* =========================================
+   2. GLOBAL RESET
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.2s; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+
+/* =========================================
+   3. LAYOUT WRAPPER
+   ========================================= */
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container for centering content */
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* =========================================
+   4. HEADER
+   ========================================= */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--bg-header);
+    backdrop-filter: blur(16px); /* Stronger blur for glass effect */
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 80px; /* Taller for premium feel */
+    display: flex;
+    align-items: center;
+}
+
+.header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* BRANDING */
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.header__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    transition: border-color 0.2s;
+}
+
+.header__title {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+}
+
+.header__brand:hover .header__avatar {
+    border-color: var(--accent);
+}
+
+/* DESKTOP NAV (The "Pills") */
+.header__nav-desktop {
+    display: flex;
+    gap: 8px;
+    background-color: var(--bg-card); /* Optional: Background pill behind all links */
+    padding: 6px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+}
+
+.nav-link {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-main);
+    background-color: var(--bg-body);
+}
+
+.nav-link.active {
+    background-color: var(--text-main); /* Active is filled black (or white in dark mode) */
+    color: var(--bg-body);
+}
+
+/* CONTROLS */
+.header__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--bg-body);
+    border-color: var(--text-muted);
+}
+
+.theme-toggle img {
+    width: 20px;
+    height: 20px;
+    /* Fix for dark mode icons */
+    filter: var(--icon-filter); 
+}
+
+/* Dark Mode Icon Logic needs this variable added to :root or body.dark-theme */
+body.dark-theme {
+    --icon-filter: invert(1);
+}
+body {
+    --icon-filter: none;
+}
+
+/* MOBILE HANDLING */
+.mobile-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .header__nav-desktop {
+        display: none; /* Hide pills on mobile */
+    }
+
+    .mobile-toggle {
+        display: block;
+        padding: 0.5rem;
+    }
+    
+    .mobile-toggle img {
+        width: 24px;
+        filter: var(--icon-filter);
+    }
+
+    /* Mobile Menu Dropdown */
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        gap: 1rem;
+        transform: translateY(-200%);
+        transition: transform 0.3s ease;
+        z-index: -1;
+    }
+
+    .mobile-menu.open {
+        transform: translateY(0);
+        display: flex;
+        box-shadow: var(--shadow-hover);
+    }
+
+    .mobile-link {
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 10px;
+        border-radius: 8px;
+        color: var(--text-main);
+    }
+    
+    .mobile-link:hover {
+        background-color: var(--bg-body);
+    }
+}
+
+/* =========================================
+   5. HERO SECTION
+   ========================================= */
+.intro {
+    padding: 5rem 0;
+    max-width: 700px;
+}
+
+.intro__title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, var(--text-main), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.intro__text {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.intro__list {
+    display: flex;
+    gap: 1rem;
+}
+
+.intro__item-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.intro__item-link:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+}
+
+.intro__social { width: 20px; }
+
+/* =========================================
+   6. ARTICLES GRID (THE CARD LAYOUT)
+   ========================================= */
+.articles {
+    padding-bottom: 5rem;
+}
+
+.articles__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.articles__title::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 24px;
+    background-color: var(--accent);
+    border-radius: 2px;
+}
+
+.articles__latest {
+    display: grid;
+    /* Responsive Grid Logic */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* The Card Styling */
+.article-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+}
+
+.articles__article-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.articles__article-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    color: var(--text-main);
+}
+
+.articles__article-summary {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    /* Clamp text to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.read-more {
+    margin-top: auto; /* Pushes link to bottom of card */
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.read-more:hover { color: var(--accent); }
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    background-color: var(--bg-body);
+}
+
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__text { color: var(--text-muted); font-size: 0.9rem; }
+.footer__social { width: 18px; opacity: 0.7; }
+
+/* Dark Mode Icon Fixes */
+body.dark-theme .intro__social, 
+body.dark-theme .footer__social {
+    filter: invert(1);
+}
+
+/* =========================================
+   8. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .header__navbar {
+        position: absolute;
+        top: 100%;
+        left: 0; 
+        right: 0;
+        background-color: var(--bg-card);
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border);
+        display: none;
+    }
+    
+    .header__navbar.open { display: block; }
+    .header__list { flex-direction: column; gap: 1.5rem; }
+    
+    #hamburger-button { display: flex; }
+    .intro__title { font-size: 2.5rem; }
+}

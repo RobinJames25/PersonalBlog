@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <main class="main">
+      <section class="newsletter">
+        <h1 class="newsletter__title">Newsletter</h1>
+        <p class="newsletter__text">
+          Want to stay updated on my latest articles, coding tutorials, and
+          personal adventures? Sign up for my newsletter! It's a simple way to
+          keep track of new posts and occasional coding tips I discover. Just
+          drop your email in the sign-up box, and I'll send you updates whenever
+          there's something new to share.
+        </p>
+        <h2 class="newsletter__your-journey">
+          I'd love to have you along for the ride and also hear about your own
+          journey!
+        </h2>
+        <form action="GET" class="newsletter__form">
+          <label for="email" class="newsletter__label">Email Address</label>
+          <div class="newsletter__email">
+            <input type="text" id="email" placeholder="email@example.com" class="newsletter__input">
+            <p class="newsletter__text-error">
+              Please enter a valid email address.
+            </p>
+            <p class="newsletter__text-success">
+              You’re subscribed! Check your inbox for updates.
+            </p>
+          </div>
+
+          <input type="submit" value="Stay updated" id="newsletter__submit">
+          <p class="newsletter__form-text">
+            Stay updated Unsubscribe anytime. No spam, I promise 🙂
+          </p>
+        </form>
+      </section>
+    </main>
+</body>
+</html>

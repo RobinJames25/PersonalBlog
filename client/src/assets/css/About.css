@@ -1,0 +1,173 @@
+/* =========================================
+   ABOUT PAGE STYLING
+   ========================================= */
+
+/* Reuse the global container logic */
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+    width: 100%;
+}
+
+/* 1. HERO SECTION (Split Layout) */
+.about-hero {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Text gets more space */
+    gap: 4rem;
+    align-items: start;
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+}
+
+.about-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* WORKSPACE IMAGE Styling */
+.workspace-wrapper {
+    position: relative;
+}
+
+.about-img {
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.about-img:hover {
+    transform: scale(1.02);
+}
+
+/* 2. BOOKS GRID SECTION */
+.about-section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.about-section-title::before {
+    content: '';
+    width: 6px;
+    height: 24px;
+    background-color: var(--accent);
+    border-radius: 2px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.book-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.book-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.book-author {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.book-reason {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* 3. CONNECT SECTION */
+.connect-section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.socials-list {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--bg-body);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+
+.social-link:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.social-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* Dark Mode Icon Fix */
+body.dark-theme .social-icon {
+    filter: invert(1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .about-hero {
+        grid-template-columns: 1fr; /* Stack vertically on tablet/mobile */
+        gap: 3rem;
+    }
+    
+    .workspace-wrapper {
+        order: -1; /* Puts image on top on mobile */
+    }
+    
+    .about-title {
+        font-size: 2.5rem;
+    }
+}

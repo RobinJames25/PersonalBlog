@@ -1,0 +1,177 @@
+/* src/assets/css/CreatePostNew.css */
+
+/* --- LOCAL VARIABLES --- */
+.np-wrapper {
+    --np-bg-page: #f8f9fa;
+    --np-bg-card: #ffffff;
+    --np-text-main: #212529;
+    --np-text-muted: #6c757d;
+    --np-border: #dee2e6;
+    --np-primary: #3b82f6; 
+    --np-primary-hover: #2563eb;
+    --np-radius: 12px;
+    --np-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--np-bg-page);
+    min-height: 100vh;
+    padding: 4rem 2rem; /* More breathing room */
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* --- CARD CONTAINER (WIDER) --- */
+.np-card {
+    background-color: var(--np-bg-card);
+    width: 100%;
+    /* INCREASED WIDTH HERE */
+    max-width: 1100px; 
+    border-radius: var(--np-radius);
+    box-shadow: var(--np-shadow);
+    padding: 4rem; /* More internal spacing */
+    border: 1px solid var(--np-border);
+}
+
+/* --- HEADER --- */
+.np-header {
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--np-bg-page);
+    padding-bottom: 2rem;
+}
+
+.np-title {
+    font-size: 3rem; /* Larger Title */
+    font-weight: 800;
+    color: var(--np-text-main);
+    margin: 0;
+    letter-spacing: -0.05rem;
+}
+
+.np-subtitle {
+    margin-top: 0.8rem;
+    color: var(--np-text-muted);
+    font-size: 1.2rem;
+}
+
+/* --- FORM GRID --- */
+.np-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* More space between inputs */
+}
+
+.np-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.np-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--np-text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+/* --- INPUTS (LARGER) --- */
+.np-input {
+    width: 100%;
+    padding: 1.2rem 1.5rem; /* Taller inputs */
+    font-size: 1.1rem;      /* Larger text */
+    border: 2px solid var(--np-border);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    color: var(--np-text-main);
+    box-sizing: border-box;
+}
+
+.np-input:focus {
+    outline: none;
+    border-color: var(--np-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* --- TEXTAREA / EDITOR (TALLER) --- */
+.np-editor {
+    min-height: 600px; /* Much taller writing area */
+    font-family: 'Fira Code', 'Courier New', monospace;
+    line-height: 1.7;
+    resize: vertical;
+}
+
+/* --- UPLOAD BAR --- */
+.np-upload-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: var(--np-bg-page);
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: 1px dashed var(--np-border);
+}
+
+.np-upload-btn {
+    background-color: #fff;
+    border: 1px solid var(--np-border);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.np-upload-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.np-upload-hint {
+    font-size: 0.95rem;
+    color: var(--np-text-muted);
+}
+
+/* --- ACTIONS --- */
+.np-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--np-border);
+}
+
+.np-btn-submit {
+    background-color: var(--np-primary);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem; /* Bigger button */
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.np-btn-submit:hover {
+    background-color: var(--np-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.np-btn-cancel {
+    background-color: transparent;
+    color: var(--np-text-muted);
+    border: none;
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.np-btn-cancel:hover {
+    background-color: #f0f0f0;
+    color: var(--np-text-main);
+}

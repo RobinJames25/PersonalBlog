@@ -1,0 +1,222 @@
+/* =========================================
+   1. VARIABLES & SETUP (Global Theme)
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    /* Core Palette */
+    --bg-body: #F8FAFC;       /* Light Slate */
+    --bg-card: #FFFFFF;       /* White */
+    --bg-header: rgba(255, 255, 255, 0.85); 
+    
+    --text-main: #0F172A;     /* Dark Navy */
+    --text-muted: #64748B;    /* Slate Grey */
+    --accent: #2563EB;        /* Royal Blue */
+    
+    --border: #E2E8F0;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    --max-width: 1100px;
+}
+
+/* Dark Mode Overrides */
+body.dark-theme {
+    --bg-body: #0F172A;
+    --bg-card: #1E293B;
+    --bg-header: rgba(15, 23, 42, 0.85);
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent: #60A5FA;
+    --border: #334155;
+}
+
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    /* Scales down the entire site. 1rem = approx 14px */
+    font-size: 87.5%; 
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1rem;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.2s; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+
+/* =========================================
+   3. LAYOUT STRUCTURE
+   ========================================= */
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Reusable Container */
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* =========================================
+   4. HEADER STYLES
+   ========================================= */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--bg-header);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    transition: border-color 0.2s;
+}
+
+.header__title {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+}
+
+.header__nav-desktop {
+    display: flex;
+    gap: 8px;
+    background-color: var(--bg-card);
+    padding: 6px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+}
+
+.nav-link {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.nav-link:hover {
+    color: var(--text-main);
+    background-color: var(--bg-body);
+}
+
+.nav-link.active {
+    background-color: var(--text-main);
+    color: var(--bg-body);
+}
+
+/* Header Controls (Theme Toggle) */
+.header__controls {
+    display: flex;
+    gap: 12px;
+}
+
+.theme-toggle, .mobile-toggle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+}
+
+.theme-toggle img, .mobile-toggle img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Mobile Menu */
+.mobile-toggle { display: none; }
+.mobile-menu { display: none; }
+
+@media (max-width: 768px) {
+    .header__nav-desktop { display: none; }
+    .mobile-toggle { display: flex; }
+    
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0; right: 0;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        gap: 1rem;
+        transform: translateY(-200%);
+        transition: transform 0.3s ease;
+        z-index: -1;
+    }
+    
+    .mobile-menu.open { transform: translateY(0); box-shadow: var(--shadow-hover); }
+    .mobile-link { padding: 10px; font-weight: 600; color: var(--text-main); }
+}
+
+/* =========================================
+   5. FOOTER STYLES
+   ========================================= */
+.footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    background-color: var(--bg-body);
+}
+
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__text { color: var(--text-muted); font-size: 0.9rem; }
+.footer__social { width: 18px; opacity: 0.7; }
+
+/* Dark Mode Icon Filters */
+body.dark-theme .intro__social, 
+body.dark-theme .footer__social,
+body.dark-theme .theme-toggle img,
+body.dark-theme .mobile-toggle img {
+    filter: invert(1);
+}

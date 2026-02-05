@@ -1,0 +1,113 @@
+/* =========================================
+   CREATE POST SPECIFIC STYLES
+   ========================================= */
+
+/* 1. EXTEND THE WRAPPER */
+/* We want the create page to be wider than the login card */
+.create-post-card {
+    max-width: 1000px !important; /* Overrides default np-card width */
+    width: 100%;
+}
+
+/* 2. UPLOAD BAR (The Image Insert Tool) */
+.np-upload-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--np-bg-page);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px dashed var(--np-border);
+    margin-bottom: 0.5rem;
+}
+
+.np-upload-btn {
+    background-color: var(--np-bg-card);
+    border: 1px solid var(--np-border);
+    color: var(--np-text-main);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.np-upload-btn:hover {
+    border-color: var(--np-primary);
+    color: var(--np-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--np-shadow);
+}
+
+.np-upload-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.np-upload-hint {
+    font-size: 0.85rem;
+    color: var(--np-text-muted);
+    font-style: italic;
+}
+
+/* 3. EDITOR TEXTAREA */
+.np-editor {
+    min-height: 500px; /* Tall writing area */
+    font-family: 'Inter', sans-serif; /* Clean font for writing */
+    line-height: 1.8;
+    resize: vertical;
+    white-space: pre-wrap; /* Preserves spacing */
+}
+
+/* Dark Mode specific tweak for the editor to ensure comfort */
+body.dark-theme .np-editor {
+    background-color: #0F172A; /* Slightly darker than card */
+    color: #FFFFFF;
+}
+
+/* 4. ACTIONS FOOTER */
+.np-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--np-border);
+}
+
+.np-btn-cancel {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--np-text-muted);
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.np-btn-cancel:hover {
+    color: var(--np-text-main);
+    background-color: var(--np-bg-page);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .np-upload-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .np-actions {
+        flex-direction: column-reverse;
+    }
+    
+    .np-btn-submit, .np-btn-cancel {
+        width: 100%;
+        justify-content: center;
+    }
+}

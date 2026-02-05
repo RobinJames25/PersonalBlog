@@ -1,0 +1,160 @@
+/* =========================================
+   BLOG ARCHIVE STYLING
+   ========================================= */
+
+/* Reuse the container logic if not globally available */
+.blog-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+/* 1. PAGE HEADER SECTION */
+.blog-header {
+    padding: 4rem 0 3rem;
+    max-width: 800px;
+}
+
+.blog-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+}
+
+.blog-intro {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* 2. SEARCH BAR Styling */
+.search-wrapper {
+    margin-bottom: 4rem;
+    max-width: 500px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-family: inherit; /* Use Inter */
+    border: 1px solid var(--border);
+    border-radius: 50px; /* Pill shape */
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); /* Subtle glow */
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* 3. THE GRID LAYOUT */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding-bottom: 5rem;
+}
+
+/* 4. CARD STYLING (Matches Home.jsx consistency) */
+.blog-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; /* Ensures all cards in a row are same height */
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+}
+
+.card-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.card-summary {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    
+    /* Clamp to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-link {
+    margin-top: auto; /* Pushes to bottom */
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+}
+
+.card-link:hover {
+    color: var(--accent);
+}
+
+/* Empty State */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px dashed var(--border);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-title {
+        font-size: 2.5rem;
+    }
+    .blog-header {
+        padding-top: 2rem;
+    }
+    .blog-grid {
+        grid-template-columns: 1fr; /* Full width on mobile */
+    }
+}

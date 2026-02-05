@@ -1,0 +1,266 @@
+/* src/assets/css/AdminStyles.css */
+
+/* =========================================
+   1. GLOBAL RESET & FONTS
+   ========================================= */
+:root {
+    --np-bg-page: #f1f5f9;       /* Light Blue-Grey Background */
+    --np-bg-card: #ffffff;       /* White Card */
+    --np-text-main: #0f172a;     /* Dark Navy Text */
+    --np-text-muted: #64748b;    /* Muted Grey Text */
+    --np-border: #e2e8f0;        /* Light Border */
+    --np-primary: #3b82f6;       /* Bright Blue Brand Color */
+    --np-primary-hover: #2563eb; /* Darker Blue for Hover */
+    --np-danger: #ef4444;        /* Red for Delete */
+    --np-danger-bg: #fee2e2;     /* Light Red Background */
+    --np-radius: 16px;           /* Rounded Corners */
+    --np-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--np-bg-page);
+    color: var(--np-text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button, input, textarea { font-family: inherit; }
+
+/* =========================================
+   2. MAIN LAYOUT WRAPPERS
+   ========================================= */
+.np-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+.np-card {
+    background-color: var(--np-bg-card);
+    width: 100%;
+    max-width: 1000px; /* Standard width for forms/tables */
+    border-radius: var(--np-radius);
+    box-shadow: var(--np-shadow);
+    padding: 3rem;
+    border: 1px solid var(--np-border);
+    height: fit-content;
+    margin: 0 auto;
+}
+
+/* =========================================
+   3. HEADERS & TYPOGRAPHY
+   ========================================= */
+.np-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.np-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--np-bg-page);
+    padding-bottom: 1.5rem;
+}
+
+.np-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--np-text-main);
+    margin-bottom: 0.5rem;
+}
+
+.np-subtitle {
+    font-size: 1rem;
+    color: var(--np-text-muted);
+}
+
+/* =========================================
+   4. FORMS & INPUTS
+   ========================================= */
+.np-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.np-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.np-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--np-text-muted);
+}
+
+.np-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border: 2px solid var(--np-border);
+    border-radius: 12px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.np-input:focus {
+    outline: none;
+    border-color: var(--np-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.np-editor {
+    min-height: 400px;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+/* =========================================
+   5. BUTTONS
+   ========================================= */
+.np-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--np-border);
+}
+
+.np-btn-submit, .np-btn-create {
+    background-color: var(--np-primary);
+    color: white;
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.np-btn-submit:hover, .np-btn-create:hover {
+    background-color: var(--np-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.np-btn-cancel {
+    background-color: transparent;
+    color: var(--np-text-muted);
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.np-btn-cancel:hover {
+    background-color: var(--np-bg-page);
+    color: var(--np-text-main);
+}
+
+/* =========================================
+   6. DASHBOARD GRID (New!)
+   ========================================= */
+.np-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.np-dashboard-card {
+    background: #fff;
+    border: 1px solid var(--np-border);
+    border-radius: var(--np-radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.np-dashboard-card:hover {
+    border-color: var(--np-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.np-icon-large { font-size: 3rem; margin-bottom: 0.5rem; display: block; }
+.np-card-title { font-size: 1.25rem; font-weight: 700; color: var(--np-text-main); }
+.np-card-desc { font-size: 0.95rem; color: var(--np-text-muted); line-height: 1.5; }
+
+/* =========================================
+   7. TABLES
+   ========================================= */
+.np-table-container { overflow-x: auto; }
+
+.np-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.np-table th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    color: var(--np-text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    background-color: #f8fafc;
+    border-bottom: 2px solid var(--np-border);
+}
+
+.np-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--np-border);
+    vertical-align: middle;
+}
+
+.np-table tr:last-child td { border-bottom: none; }
+
+.np-post-title { font-weight: 600; color: var(--np-text-main); font-size: 1.05rem; }
+.np-post-slug { 
+    background: #f1f5f9; padding: 0.25rem 0.6rem; 
+    border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: var(--np-text-muted);
+}
+
+/* Action Buttons Small */
+.np-btn-icon {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+.np-btn-edit { background: #e0f2fe; color: #0284c7; }
+.np-btn-edit:hover { background: #bae6fd; }
+.np-btn-delete { background: #fee2e2; color: #dc2626; }
+.np-btn-delete:hover { background: #fecaca; }

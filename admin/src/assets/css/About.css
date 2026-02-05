@@ -1,0 +1,148 @@
+.about {
+    max-width: 60rem;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+ul {
+    padding: 0;
+}
+
+.about__title {
+    color: var(--text-title);
+    font-family: var(--text-2-family);
+    font-size: var(--text-2-size);
+    font-weight: var(--text-2-weight);
+    line-height: var(--text-2-height);
+    letter-spacing: var(--text-2-spacing);
+    margin-bottom: 2.4rem;
+    position: relative;
+    width: fit-content;
+    z-index: 1;
+}
+
+.about__title::before {
+    content: "";
+    position: absolute;
+    bottom: 0.4rem;
+    left: 0rem;
+    height: 0.8rem;
+    width: 100%;
+    background-color: var(--underline-color);
+    z-index: -1;
+}
+
+.about__text {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: var(--text-7-size);
+    font-weight: var(--text-7-weight);
+    line-height: var(--text-7-height);
+    letter-spacing: var(--text-7-spacing);
+    margin-bottom: 2.4rem;
+}
+
+.about__list {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: var(--text-7-size);
+    font-weight: var(--text-7-weight);
+    line-height: var(--text-7-height);
+    letter-spacing: var(--text-7-spacing);
+    margin-bottom: 2.4rem;
+    padding-left: 2.5rem;
+}
+
+.about__item {
+    list-style: disc;
+}
+
+.about__item::marker {
+    color: var(--text-body);
+    font-family: var(--text-7-family);
+    font-size: var(--text-7-size);
+    font-weight: var(--text-7-semibold-weight);
+    line-height: var(--text-7-height);
+    letter-spacing: var(--text-7-spacing);
+}
+
+.about__list span {
+    font-weight: var(--text-7-semibold-weight);
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+.about__img {
+    border-radius: 1.2rem;
+    margin-bottom: 2.4rem;
+}
+
+.about__socials {
+    color: var(--text-title);
+    font-family: var(--text-4-family);
+    font-size: var(--text-4-size);
+    font-weight: var(--text-4-weight);
+    line-height: var(--text-4-height);
+    letter-spacing: var(--text-4-spacing);
+    margin-bottom: 1.6rem;
+}
+
+.about__socials-list {
+    display: flex;
+    gap: 1.2rem;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- UPDATED ICON SECTION (About Page) --- */
+
+/* 1. Style the Link Container (<a>) */
+.about__socials-item-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Moved these styles here from .about__social */
+    background-color: var(--background-btn-color);
+    border-radius: 1rem;
+    border: 0.1rem solid var(--border-color);
+    padding: 1.2rem;
+    
+    /* Smooth transition for hover effects */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Optional hover effect */
+.about__socials-item-link:hover {
+    background-color: var(--background-btn-color-hover);
+    border-color: var(--border-color-hover);
+}
+
+/* 2. Style the Image (Icon) */
+.about__social {
+    /* Removed background/border/padding from here */
+    width: 2.4rem;
+    height: 2.4rem;
+    display: block;
+}
+
+/* 3. Dark Mode Fix: Ensure this rule exists in your main CSS file
+   to invert ONLY the icon, not the box. */
+/* body.dark-theme .about__social {
+    filter: brightness(0) invert(1);
+}
+*/
+
+/* --- END UPDATED SECTION --- */

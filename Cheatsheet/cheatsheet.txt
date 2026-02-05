@@ -1,0 +1,54 @@
+1. The Standard Paragraph
+Just wrap your text in p tags.
+
+HTML
+
+<p>
+  Your text goes here. It will automatically have the correct font size, 
+  line height, and color from your CSS.
+</p>
+2. Subheadings (H3)
+Use H3 for sections. Your CSS automatically adds spacing above them.
+
+HTML
+
+<h3>1. The First Major Point</h3>
+3. The "Callout" Box (Blue Highlight)
+Use this for tips, warnings, or key takeaways.
+
+HTML
+
+<div class="article-callout">
+  <strong>Key Takeaway:</strong> This box will automatically be blue with a bold border.
+</div>
+4. The Bullet List
+Don't just use dashes. Use ul and li for proper indentation.
+
+HTML
+
+<ul class="article-list">
+  <li>First item in the list</li>
+  <li>Second item with <strong>bold text</strong></li>
+  <li>Third item</li>
+</ul>
+5. Images (Responsive)
+This tag ensures the image never stretches wider than the screen.
+
+HTML
+
+<img 
+  src="https://link-to-your-image.com/image.jpg" 
+  alt="Description of image" 
+  style="max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;"
+>
+6. Code Blocks (For showing code)
+If you are sharing code snippets, wrap them like this:
+
+HTML
+
+<pre style="background: #1e1e1e; color: #fff; padding: 1.5rem; border-radius: 8px; overflow-x: auto;">
+  <code>
+    const hello = "world";
+    console.log(hello);
+  </code>
+</pre>
