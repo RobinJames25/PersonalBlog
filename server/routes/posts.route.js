@@ -12,4 +12,6 @@ router.post('/', postController.createPost);
 router.put('/:id', postController.updatePost);    // PUT is for updates
 router.delete('/:id', postController.deletePost); // DELETE is for deletions
 
+
+
 module.exports = router;
