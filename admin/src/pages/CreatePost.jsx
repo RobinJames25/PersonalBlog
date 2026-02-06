@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Added for smoother navigation
+// CHANGE 1: Import centralized API
+import api from '../../api/axios'; 
 import Layout from '../components/Layout'; 
 import '../assets/css/Admin.css'; 
 import '../assets/css/Createpost.css'; 
@@ -12,6 +14,7 @@ const CreatePost = () => {
   
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
 
   // --- Auto-generate Slug ---
   const handleTitleChange = (e) => {
@@ -34,14 +37,20 @@ const CreatePost = () => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      // CHANGE 2: Use api.post (No need for full URL)
+      // Note: 'Content-Type': 'multipart/form-data' is typically handled automatically 
+      // by the browser when sending FormData, but keeping it explicit is fine.
+      const response = await api.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
+
       const imageUrl = response.data.url;
+      
       // Insert HTML image tag into content
       const imageHtml = `\n<img src="${imageUrl}" alt="Image" style="max-width: 100%; border-radius: 12px; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">\n`;
       setContent(prev => prev + imageHtml);
       alert("Image inserted into editor!");
+
     } catch (error) {
       console.error(error);
       alert("Failed to upload image.");
@@ -54,28 +63,32 @@ const CreatePost = () => {
   const createPost = async (e) => {
     e.preventDefault();
     try {
-      // You might need to add Authorization header here if you protected the route
-      const token = localStorage.getItem('token');
+      // CHANGE 3: Remove manual Token extraction!
+      // The HttpOnly cookie is automatically sent by 'withCredentials: true' in api/axios.js
       
-      const response = await axios.post('http://localhost:5000/api/posts', {
+      const response = await api.post('/posts', {
         title, slug, summary, content,
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
       });
 
       if (response.status === 200 || response.status === 201) {
-        window.location.href = '/admin/dashboard'; 
+        // CHANGE 4: Use navigate instead of reload
+        navigate('/admin/dashboard'); 
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to create post. Check console for details.");
+      // Optional: Handle 401 Unauthorized specifically
+      if (error.response && error.response.status === 401) {
+        alert("Session expired. Please login again.");
+        navigate('/admin/login');
+      } else {
+        alert("Failed to create post. Check console for details.");
+      }
     }
   };
 
   return (
     <Layout>
       <div className="np-wrapper">
-        {/* We add 'create-post-card' to make it wider than the login box */}
         <div className="np-card create-post-card">
           
           <header className="np-header">
@@ -165,7 +178,11 @@ const CreatePost = () => {
               <button type="submit" className="np-btn-submit">
                  Publish Post
               </button>
-              <button type="button" className="np-btn-cancel" onClick={() => window.history.back()}>
+              <button 
+                type="button" 
+                className="np-btn-cancel" 
+                onClick={() => navigate(-1)} // Go back to previous page
+              >
                  Cancel
               </button>
             </div>

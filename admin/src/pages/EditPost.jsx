@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// CHANGE 1: Import centralized API
+import api from '../../api/axios'; 
 import Layout from '../components/Layout';
 import '../assets/css/Admin.css'; 
 import '../assets/css/Createpost.css';
@@ -21,8 +22,10 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        // CHANGE 2: Use api.get with relative path
+        const response = await api.get(`/posts/${id}`);
         const post = response.data;
+        
         setTitle(post.title);
         setSlug(post.slug);
         setSummary(post.summary);
@@ -31,6 +34,7 @@ const EditPost = () => {
       } catch (error) {
         console.error("Error fetching post:", error);
         alert("Could not load post data.");
+        setLoading(false);
       }
     };
     fetchPost();
@@ -46,13 +50,16 @@ const EditPost = () => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      // CHANGE 3: Use api.post for uploads
+      const response = await api.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
+      
       const imageUrl = response.data.url;
       const imageHtml = `\n<img src="${imageUrl}" alt="Uploaded Image" style="max-width: 100%; border-radius: 12px; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">\n`;
       setContent(prev => prev + imageHtml);
       alert("Image inserted!");
+
     } catch (error) {
       console.error("Upload error:", error);
       alert("Failed to upload image. Is the server running?");
@@ -66,19 +73,26 @@ const EditPost = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      // Optional: Add Authorization header if needed
-      // const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/posts/${id}`, {
+      // CHANGE 4: Use api.put
+      // No need to manually add tokens; the cookie is sent automatically.
+      await api.put(`/posts/${id}`, {
         title,
         slug, 
         summary,
         content,
       });
+
       alert('Post Updated Successfully!');
       navigate('/admin/manage'); 
+
     } catch (error) {
       console.error("Error updating post:", error);
-      alert("Failed to update post");
+      if (error.response && error.response.status === 401) {
+          alert("Session expired. Please login again.");
+          navigate('/admin/login');
+      } else {
+          alert("Failed to update post");
+      }
     }
   };
 
@@ -94,7 +108,6 @@ const EditPost = () => {
   return (
     <Layout>
       <div className="np-wrapper">
-        {/* Added 'create-post-card' to make it wider */}
         <div className="np-card create-post-card">
           
           <header className="np-header">
@@ -116,7 +129,7 @@ const EditPost = () => {
               />
             </div>
 
-            {/* LOCKED SLUG - Styled with variables for Dark Mode */}
+            {/* LOCKED SLUG */}
             <div className="np-field">
               <label className="np-label">Slug (URL ID)</label>
               <input 

@@ -1,19 +1,32 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// CHANGE 1: Import your centralized API
+import api from '../../api/axios'; 
 import Layout from '../components/Layout';
 import '../assets/css/Admin.css';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   
-  // Define your live site URL here (or use an environment variable)
-  const LIVE_SITE_URL = "http://localhost:5173/";
+  // CHANGE 2: Make the Live URL dynamic
+  // In dev, it uses localhost. In prod, define VITE_CLIENT_URL in Vercel.
+  const LIVE_SITE_URL = import.meta.env.VITE_CLIENT_URL || "http://localhost:5173/";
 
-const handleLogout = () => {
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('token');
-    localStorage.removeItem('adminName');
-    navigate('/admin/login');
+  const handleLogout = async () => {
+    try {
+      // CHANGE 3: Call the backend to clear the HttpOnly cookie
+      // (We will add this endpoint to your backend in a second)
+      await api.get('/users/logout');
+    } catch (error) {
+      console.error("Logout failed on server", error);
+    } finally {
+      // CHANGE 4: Clear Client UI state
+      localStorage.removeItem('isAdmin');
+      localStorage.removeItem('adminName');
+      // No need to remove 'token' because we stopped saving it there!
+      
+      navigate('/admin/login');
+    }
   };
 
   return (
@@ -34,7 +47,8 @@ const handleLogout = () => {
                 backgroundColor: 'transparent', 
                 border: '1px solid var(--np-border)', 
                 color: 'var(--np-text-main)',
-                boxShadow: 'none'
+                boxShadow: 'none',
+                cursor: 'pointer'
               }}
               onMouseOver={(e) => {
                   e.currentTarget.style.backgroundColor = 'var(--np-bg-page)';
@@ -51,7 +65,7 @@ const handleLogout = () => {
 
           <div className="np-dashboard-grid">
             
-            {/* 1. Manage Posts (Internal Link) */}
+            {/* 1. Manage Posts */}
             <Link to="/admin/manage" className="np-dashboard-card">
               <span className="np-icon-large" role="img" aria-label="folder">📂</span>
               <div className="np-card-title">Manage Articles</div>
@@ -60,7 +74,7 @@ const handleLogout = () => {
               </div>
             </Link>
 
-            {/* 2. Create New (Internal Link) */}
+            {/* 2. Create New */}
             <Link to="/admin/create" className="np-dashboard-card">
               <span className="np-icon-large" role="img" aria-label="write">✍️</span>
               <div className="np-card-title">Create New</div>
@@ -69,8 +83,7 @@ const handleLogout = () => {
               </div>
             </Link>
 
-            {/* 3. View Live Site (EXTERNAL LINK FIX) */}
-            {/* Changed from <Link> to <a> because it is on a different port */}
+            {/* 3. View Live Site */}
             <a 
               href={LIVE_SITE_URL} 
               className="np-dashboard-card" 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+// CHANGE 1: Import centralized API
+import api from '../../api/axios'; 
 import Layout from '../components/Layout';
-// Import the Unified Admin CSS
 import '../assets/css/Admin.css';
 
 const ManagePosts = () => {
@@ -16,8 +16,20 @@ const ManagePosts = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/posts');
-      setPosts(response.data);
+      // CHANGE 2: Use api.get (Auto-points to correct URL)
+      const response = await api.get('/posts');
+      
+      // CHANGE 3: Safe Data Unwrapping
+      // (Handles cases where backend returns [..] or { data: [..] })
+      const data = response.data;
+      if (Array.isArray(data)) {
+        setPosts(data);
+      } else if (data.data && Array.isArray(data.data)) {
+        setPosts(data.data);
+      } else {
+        setPosts([]);
+      }
+
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
@@ -29,13 +41,19 @@ const ManagePosts = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this post? This cannot be undone.")) {
       try {
-        // Optional: Add Authorization header here if needed
-        await axios.delete(`http://localhost:5000/api/posts/${id}`);
+        // CHANGE 4: Use api.delete
+        // The HttpOnly cookie is sent automatically, authorizing the deletion.
+        await api.delete(`/posts/${id}`);
         
-        // Remove the deleted post from the list without refreshing
+        // Remove the deleted post from the UI
         setPosts(posts.filter(post => post.id !== id));
       } catch (error) {
-        alert("Failed to delete post");
+        console.error(error);
+        if (error.response && error.response.status === 401) {
+            alert("Session expired. Please login again.");
+        } else {
+            alert("Failed to delete post");
+        }
       }
     }
   };
@@ -72,7 +90,8 @@ const ManagePosts = () => {
               </thead>
               
               <tbody>
-                {!loading && posts.map((post) => (
+                {/* CHANGE 5: Added Array.isArray check to prevent crashes */}
+                {!loading && Array.isArray(posts) && posts.map((post) => (
                   <tr key={post.id}>
                     {/* Title */}
                     <td>

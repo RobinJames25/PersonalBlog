@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom'; 
+import api from '../../api/axios.js'; // Updated import
 import Layout from '../components/Layout';
-// Ensure SVGs are imported correctly based on your folder structure
+
+// Asset Imports
 import xLogo from '../assets/logo-x.svg';
 import gitHubLogo from '../assets/logo-github.svg';
 import linkedinLogo from '../assets/logo-linkedin.svg';
 import frontendMentorLogo from '../assets/logo-frontend-mentor.svg';
-import '../assets/css/Homepage.css'
+import '../assets/css/Homepage.css';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/posts')
-      .then(response => setPosts(response.data))
-      .catch(err => console.error(err));
-  }, []);
+  api.get('/posts')
+    .then(response => {
+      console.log("API RESPONSE:", response.data); // <--- Add this line!
+      setPosts(response.data); 
+    })
+    .catch(err => console.error(err));
+}, []);
 
   return (
     <Layout>

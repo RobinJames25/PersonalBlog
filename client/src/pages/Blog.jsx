@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../api/axios'; // Updated import
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import '../assets/css/Blog.css'; 
@@ -9,9 +9,9 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch Posts
+  // 1. Fetch Posts (Using centralized API)
   useEffect(() => {
-    axios.get('http://localhost:5000/api/posts')
+    api.get('/posts')
       .then(response => {
         setPosts(response.data);
         setLoading(false);
