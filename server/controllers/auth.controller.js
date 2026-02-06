@@ -75,3 +75,15 @@ exports.login = async (req, res) => {
     res.status(400).json({ status: 'fail', message: err.message });
   }
 };
+
+exports.logout = (req, res) => {
+  // Overwrite the cookie with a dummy value that expires immediately
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000), // Expires in 10 seconds
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+  });
+  
+  res.status(200).json({ status: 'success' });
+};

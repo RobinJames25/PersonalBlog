@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axios'; // Updated import
 import Layout from '../components/Layout';
-// Import your static posts data if you still support them
 import { blogPosts as staticPosts } from '../data/blogPosts'; 
 import '../assets/css/Blogdetail.css';
 
@@ -24,9 +23,9 @@ const BlogDetail = () => {
       setPost(null);
 
       try {
-        // CASE A: Database Post
+        // CASE A: Database Post (Using centralized API)
         if (dbId) {
-          const response = await axios.get(`http://localhost:5000/api/posts/${dbId}`);
+          const response = await api.get(`/posts/${dbId}`);
           setPost(response.data);
         } 
         // CASE B: Static Post
@@ -99,12 +98,10 @@ const BlogDetail = () => {
           <h1 className="article-title">{post.title}</h1>
           <div className="article-meta">
             <span>{dateString}</span>
-            {/* You can add ' • 5 min read' here if you calculate reading time later */}
           </div>
         </header>
         
         {/* Content Body */}
-        {/* We use dangerouslySetInnerHTML because rich text editors save HTML */}
         <div 
           className="article-body"
           dangerouslySetInnerHTML={{ __html: post.content }} 

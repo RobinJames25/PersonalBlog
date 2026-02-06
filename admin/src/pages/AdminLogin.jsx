@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// CHANGE 1: Import centralized API instead of axios
+import api from '../../api/axios'; 
 import Layout from '../components/Layout';
 import '../assets/css/Admin.css'; 
 
@@ -16,23 +17,25 @@ const AdminLogin = () => {
     e.preventDefault();
     setLoading(true);
     
-    const endpoint = isSignup ? 'signup' : 'login';
-    const url = `http://localhost:5000/api/users/${endpoint}`;
+    // CHANGE 2: Simplified URL (baseURL is already set in api instance)
+    const endpoint = isSignup ? '/users/signup' : '/users/login';
 
     try {
-      const res = await axios.post(url, { email, password });
+      // CHANGE 3: Use api.post (Credentials are sent automatically)
+      const res = await api.post(endpoint, { email, password });
 
-      // 1. Get Data from Response
-      const token = res.data.token;
-      // Check if backend sent a name, otherwise split email to create a name
-      const userName = res.data.name || email.split('@')[0]; 
+      // --- CRITICAL SECURITY UPDATE ---
+      // We NO LONGER store the token in localStorage. 
+      // The browser has already saved the HttpOnly cookie for us.
       
-      // 2. Save to LocalStorage
-      localStorage.setItem('token', token);
+      // We only store non-sensitive UI data
+      const userName = res.data.data?.user?.email.split('@')[0] || 'Admin';
+      
+      // Just mark them as "logged in" for the UI to update
       localStorage.setItem('isAdmin', 'true');
-      localStorage.setItem('adminName', userName); // <--- SAVING THE NAME HERE
+      localStorage.setItem('adminName', userName); 
 
-      // 3. Alert & Redirect
+      // Alert & Redirect
       alert(isSignup ? "Account Created! Welcome." : "Login Successful!");
       navigate('/admin/dashboard'); 
 
