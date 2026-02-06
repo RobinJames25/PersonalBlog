@@ -7,6 +7,38 @@ const signToken = (id) => {
   });
 };
 
+// --- HELPER: Handle Token & Cookie ---
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user.id);
+
+  // Check the environment
+  // Render sets this to 'production' automatically. 
+  // Locally, you must set NODE_ENV=development in your .env file.
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  const cookieOptions = {
+    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days
+    httpOnly: true,   // Security: Browser JS cannot read this cookie
+    
+    // DYNAMIC SECURITY SETTINGS:
+    // Production (Render): Must be Secure (HTTPS) & SameSite='none' (Cross-Site allowed)
+    // Development (Local): Must be Insecure (HTTP) & SameSite='lax' (Standard browser behavior)
+    secure: isProduction, 
+    sameSite: isProduction ? 'none' : 'lax'
+  };
+
+  res.cookie('jwt', token, cookieOptions);
+
+  // Remove password from output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token, // Token is sent in JSON as backup, but browser uses the cookie
+    data: { user }
+  });
+};
+
 // --- 1. SIGNUP ---
 exports.signup = async (req, res) => {
   try {
@@ -15,17 +47,8 @@ exports.signup = async (req, res) => {
       password: req.body.password,
     });
 
-    // Remove password from the response data for security
-    const userResponse = newUser.toJSON();
-    delete userResponse.password;
+    createSendToken(newUser, 201, res);
 
-    const token = signToken(newUser.id);
-
-    res.status(201).json({
-      status: 'success',
-      token,
-      data: { user: userResponse },
-    });
   } catch (err) {
     res.status(400).json({ status: 'fail', message: err.message });
   }
@@ -40,19 +63,14 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Please provide email and password' });
     }
 
-    // Sequelize returns all fields by default (including password)
     const user = await User.findOne({ where: { email } });
 
     if (!user || !(await user.correctPassword(password, user.password))) {
       return res.status(401).json({ message: 'Incorrect email or password' });
     }
 
-    const token = signToken(user.id);
+    createSendToken(user, 200, res);
 
-    res.status(200).json({
-      status: 'success',
-      token,
-    });
   } catch (err) {
     res.status(400).json({ status: 'fail', message: err.message });
   }
