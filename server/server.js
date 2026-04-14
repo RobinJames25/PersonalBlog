@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const sequelize = require('./config/db');
 
-// --- SAFETY SWITCH: Only load .env if we are NOT in production ---
-// This prevents the "localhost" error on Render
+// --- 1. NEW WAY TO IMPORT SEQUELIZE ---
+// Instead of importing from config/db, we import from the models folder.
+// This forces Node to run models/index.js, load all models, and build relationships!
+const { sequelize } = require('./models');
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -12,7 +14,9 @@ if (process.env.NODE_ENV !== 'production') {
 // --- IMPORTS ---
 const postRoutes = require('./routes/posts.route'); 
 const authRoutes = require('./routes/user.route');
-const uploadRoutes = require('./routes/upload.route'); 
+const uploadRoutes = require('./routes/upload.route');
+// --- 2. IMPORT THE NEW COMMENTS ROUTE ---
+const commentRoutes = require('./routes/comment.routes'); // Ensure this filename exactly matches your routes file
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,7 +24,6 @@ const PORT = process.env.PORT || 3000;
 // --- MIDDLEWARE ---
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
@@ -28,7 +31,7 @@ app.use(cors({
       process.env.ADMIN_FRONTEND_URL,
       'http://localhost:5173', 
       'http://localhost:5174'
-    ].filter(Boolean); // Remove any undefined values
+    ].filter(Boolean); 
 
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
@@ -45,8 +48,9 @@ app.use(express.json());
 app.use('/api/posts', postRoutes);
 app.use('/api/users', authRoutes);
 app.use('/api/upload', uploadRoutes);
+// --- 3. MOUNT THE COMMENTS ROUTE ---
+app.use('/api/comments', commentRoutes);
 
-// Simple health check route
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
@@ -57,8 +61,10 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ PostgreSQL connected successfully.');
 
-    // Sync models (alter: false is safer for production to avoid data loss)
-    await sequelize.sync({ alter: false }); 
+    // --- 4. TEMPORARILY SET ALTER TO TRUE ---
+    // This tells PostgreSQL to look at your models and add the missing Comments table.
+    // Once it successfully deploys and works, you can change this back to `false`.
+    await sequelize.sync({ alter: true }); 
     console.log('✅ Models synchronized.');
 
     app.listen(PORT, () => {
