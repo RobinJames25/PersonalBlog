@@ -25,7 +25,7 @@ const Header = () => {
         setDisplayName('Admin');
       }
     } else {
-      setDisplayName('Paulina'); // Public Site Name
+      setDisplayName('Admin'); // Public Site Name
     }
   }, [isAdmin, location]);
 
