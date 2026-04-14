@@ -15,8 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 const postRoutes = require('./routes/posts.route'); 
 const authRoutes = require('./routes/user.route');
 const uploadRoutes = require('./routes/upload.route');
-// --- 2. IMPORT THE NEW COMMENTS ROUTE ---
-const commentRoutes = require('./routes/comment.routes'); // Ensure this filename exactly matches your routes file
+const commentRoutes = require('./routes/comment.route'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
