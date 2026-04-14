@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import api from '../../api/axios'; // Updated import
+import api from '../../api/axios'; 
 import Layout from '../components/Layout';
 import { blogPosts as staticPosts } from '../data/blogPosts'; 
+import CommentSection from '../components/CommentSection';
 import '../assets/css/Blogdetail.css';
 
 const BlogDetail = () => {
@@ -23,22 +24,17 @@ const BlogDetail = () => {
       setPost(null);
 
       try {
-        // CASE A: Database Post (Using centralized API)
         if (dbId) {
           const response = await api.get(`/posts/${dbId}`);
           setPost(response.data);
-        } 
-        // CASE B: Static Post
-        else if (staticSlug) {
+        } else if (staticSlug) {
           const found = staticPosts.find((p) => p.id === staticSlug || p.slug === staticSlug);
           if (found) {
             setPost(found);
           } else {
             setError(true);
           }
-        } 
-        // CASE C: Invalid URL
-        else {
+        } else {
           setError(true);
         }
       } catch (err) {
@@ -53,7 +49,6 @@ const BlogDetail = () => {
     window.scrollTo(0, 0);
   }, [dbId, staticSlug]);
 
-  // --- 1. LOADING STATE ---
   if (loading) {
     return (
       <Layout>
@@ -64,7 +59,6 @@ const BlogDetail = () => {
     );
   }
 
-  // --- 2. NOT FOUND STATE ---
   if (error || !post) {
     return (
       <Layout>
@@ -81,7 +75,6 @@ const BlogDetail = () => {
     );
   }
 
-  // --- 3. SUCCESS STATE ---
   const dateString = post.createdAt 
     ? new Date(post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : post.date;
@@ -90,7 +83,6 @@ const BlogDetail = () => {
     <Layout>
       <article className="article-container">
         
-        {/* Header */}
         <header className="article-header">
           <Link to="/blog" className="back-link">
              &larr; Back to Archive
@@ -101,13 +93,19 @@ const BlogDetail = () => {
           </div>
         </header>
         
-        {/* Content Body */}
         <div 
           className="article-body"
           dangerouslySetInnerHTML={{ __html: post.content }} 
         />
 
-        {/* Footer */}
+        {/* ONLY render comments if this is a database post (has a valid dbId) */}
+        {dbId && (
+          <>
+            <hr className="article-divider" style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '3rem 0' }} />
+            <CommentSection postId={post.id} />
+          </>
+        )}
+
         <footer className="article-footer">
            <p>Thanks for reading. Check out more posts below.</p>
            <Link to="/blog" className="back-link">

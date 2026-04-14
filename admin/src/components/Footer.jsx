@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container footer__content">
         <p className="footer__text">
-            © {new Date().getFullYear()} Paulina. Built with React.
+            © {new Date().getFullYear()} Robin. Built with React.
         </p>
         
         <ul className="footer__list" style={{display: 'flex', gap: '1rem'}}>

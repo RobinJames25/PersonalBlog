@@ -68,13 +68,13 @@ const About = () => {
             <a href="#X" className="social-link" aria-label="Twitter">
               <img src={xLogo} alt="" className="social-icon" />
             </a>
-            <a href="#GitHub" className="social-link" aria-label="GitHub">
+            <a href="https://github.com/RobinJames25" className="social-link" aria-label="GitHub">
               <img src={gitHubLogo} alt="" className="social-icon" />
             </a>
-            <a href="#Linkedin" className="social-link" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/robinjames25/" className="social-link" aria-label="LinkedIn">
               <img src={linkedinLogo} alt="" className="social-icon" />
             </a>
-            <a href="#FrontendMentor" className="social-link" aria-label="Frontend Mentor">
+            <a href="https://www.frontendmentor.io/profile/RobinJames25" className="social-link" aria-label="Frontend Mentor">
               <img src={frontendMentorLogo} alt="" className="social-icon" />
             </a>
           </div>
