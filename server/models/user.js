@@ -18,6 +18,15 @@ const User = sequelize.define('User', {
       len: [6, 100], // Min length 6
     },
   },
+  // --- NEW FIELDS FOR PASSWORD RESET ---
+  passwordResetToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  passwordResetExpires: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 }, {
   hooks: {
     // Hash password before creating the user

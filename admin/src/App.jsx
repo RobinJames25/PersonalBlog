@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import CreatePost from './pages/CreatePost';
+import AdminResetPassword from './pages/AdminResetPassword'; // Make sure this file exists!
 // FIXED: Changed './pages/ManagePost' to './pages/ManagePosts' (Plural)
 import ManagePosts from './pages/ManagePost'; 
 import EditPost from './pages/EditPost';
@@ -22,9 +23,13 @@ function App() {
         {/* 1. Redirect Root to the Dashboard (or Login) */}
         <Route path="/" element={<Navigate to="/admin/dashboard" />} />
         
-        {/* 2. Login Page */}
+        {/* 2. Public Auth Routes */}
         {/* I changed this to /admin/login to keep your URLs consistent */}
         <Route path="/admin/login" element={<AdminLogin />} />
+        
+        {/* --- NEW: Password Reset Route --- */}
+        {/* Must be public so users can access it from the link sent to their email */}
+        <Route path="/reset-password/:token" element={<AdminResetPassword />} />
 
         {/* 3. Protected Dashboard Routes */}
         {/* ADDED '/admin' PREFIX TO ALL ROUTES BELOW */}

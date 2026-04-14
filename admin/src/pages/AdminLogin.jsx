@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// CHANGE 1: Import centralized API instead of axios
 import api from '../../api/axios'; 
 import Layout from '../components/Layout';
 import '../assets/css/Admin.css'; 
@@ -9,6 +8,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignup, setIsSignup] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false); // NEW STATE
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
@@ -16,29 +16,27 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
-    // CHANGE 2: Simplified URL (baseURL is already set in api instance)
-    const endpoint = isSignup ? '/users/signup' : '/users/login';
 
     try {
-      // CHANGE 3: Use api.post (Credentials are sent automatically)
-      const res = await api.post(endpoint, { email, password });
+      // --- FLOW 1: FORGOT PASSWORD ---
+      if (isForgotPassword) {
+        const res = await api.post('/users/forgotPassword', { email });
+        alert("If an account exists, a reset link has been generated. (Check console for URL during testing)");
+        console.log("TESTING ONLY - Reset URL:", res.data.resetURL);
+        setIsForgotPassword(false); // Go back to login screen
+      } 
+      // --- FLOW 2: LOGIN / SIGNUP ---
+      else {
+        const endpoint = isSignup ? '/users/signup' : '/users/login';
+        const res = await api.post(endpoint, { email, password });
 
-      // --- CRITICAL SECURITY UPDATE ---
-      // We NO LONGER store the token in localStorage. 
-      // The browser has already saved the HttpOnly cookie for us.
-      
-      // We only store non-sensitive UI data
-      const userName = res.data.data?.user?.email.split('@')[0] || 'Admin';
-      
-      // Just mark them as "logged in" for the UI to update
-      localStorage.setItem('isAdmin', 'true');
-      localStorage.setItem('adminName', userName); 
+        const userName = res.data.data?.user?.email.split('@')[0] || 'Admin';
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.setItem('adminName', userName); 
 
-      // Alert & Redirect
-      alert(isSignup ? "Account Created! Welcome." : "Login Successful!");
-      navigate('/admin/dashboard'); 
-
+        alert(isSignup ? "Account Created! Welcome." : "Login Successful!");
+        navigate('/admin/dashboard'); 
+      }
     } catch (error) {
       console.error(error);
       const msg = error.response?.data?.message || "Authentication failed";
@@ -55,10 +53,12 @@ const AdminLogin = () => {
           
           <header className="np-header">
             <h1 className="np-title">
-              {isSignup ? 'Create Account' : 'Admin Portal'}
+              {isForgotPassword ? 'Reset Password' : (isSignup ? 'Create Account' : 'Admin Portal')}
             </h1>
             <p className="np-subtitle">
-              {isSignup ? 'Register to manage your blog' : 'Please authenticate to continue'}
+              {isForgotPassword 
+                ? 'Enter your email to receive a reset link' 
+                : (isSignup ? 'Register to manage your blog' : 'Please authenticate to continue')}
             </p>
           </header>
 
@@ -75,18 +75,32 @@ const AdminLogin = () => {
               />
             </div>
 
-            <div className="np-field">
-              <label className="np-label">Password</label>
-              <input 
-                type="password" 
-                className="np-input" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-                minLength={6}
-              />
-            </div>
+            {/* Hide password field if they are resetting their password */}
+            {!isForgotPassword && (
+              <div className="np-field">
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <label className="np-label">Password</label>
+                  {!isSignup && (
+                    <span 
+                      onClick={() => setIsForgotPassword(true)}
+                      className="np-toggle-link"
+                      style={{ fontSize: '0.85rem', margin: 0, fontWeight: 'normal' }}
+                    >
+                      Forgot Password?
+                    </span>
+                  )}
+                </div>
+                <input 
+                  type="password" 
+                  className="np-input" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required={!isForgotPassword} // Only required if not forgot password flow
+                  placeholder="••••••••"
+                  minLength={6}
+                />
+              </div>
+            )}
 
             <button 
                 type="submit" 
@@ -94,17 +108,27 @@ const AdminLogin = () => {
                 style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}
                 disabled={loading}
               >
-                {loading ? 'Processing...' : (isSignup ? 'Create Account' : 'Login')}
+                {loading ? 'Processing...' : (
+                  isForgotPassword ? 'Send Reset Link' : (isSignup ? 'Create Account' : 'Login')
+                )}
             </button>
 
             <div style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--np-text-muted)' }}>
-                {isSignup ? "Already have an account?" : "Don't have an account?"}
-                <span 
-                  onClick={() => setIsSignup(!isSignup)} 
-                  className="np-toggle-link"
-                >
-                  {isSignup ? 'Login here' : 'Sign up'}
-                </span>
+                {isForgotPassword ? (
+                  <>
+                    Remember your password? 
+                    <span onClick={() => setIsForgotPassword(false)} className="np-toggle-link">
+                      Back to Login
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {isSignup ? "Already have an account?" : "Don't have an account?"}
+                    <span onClick={() => setIsSignup(!isSignup)} className="np-toggle-link">
+                      {isSignup ? 'Login here' : 'Sign up'}
+                    </span>
+                  </>
+                )}
             </div>
           </form>
 
