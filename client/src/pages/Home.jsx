@@ -12,7 +12,7 @@ import '../assets/css/Homepage.css';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const LIVE_SITE_URL = import.meta.env.ADMIN_CLIENT_URL || "http://localhost:5174/";
+  const LIVE_SITE_URL = import.meta.env.VITE_ADMIN_CLIENT_URL || "http://localhost:5174/";
 
   useEffect(() => {
   api.get('/posts')
