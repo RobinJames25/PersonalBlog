@@ -12,6 +12,7 @@ import '../assets/css/Homepage.css';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const LIVE_SITE_URL = import.meta.env.ADMIN_CLIENT_URL || "http://localhost:5174/";
 
   useEffect(() => {
   api.get('/posts')
@@ -80,7 +81,7 @@ const Home = () => {
                 </article>
               ))
             ) : (
-              <p>No articles found. Go to <Link to="/create" style={{color: 'var(--accent)'}}>/create</Link> to start.</p>
+              <p>No articles found. Go to <a href={LIVE_SITE_URL} target='_blank' rel='noopener noreferrer' style={{color: 'var(--accent)'}}>/create</a> to start.</p>
             )}
           </div>
 
